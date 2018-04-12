@@ -29,14 +29,11 @@ module.exports = {
     },
 
      login: function(req, res) {
+
         User.findOne({
             email: req.body.email
         }).then(data => {
-            console.log(process.env.SECRETKEY);
-
           if (data !==null) {
-
-
             var result = bcrypt.compareSync(req.body.password, data.password);
             if (result) {
               let payload = {
@@ -44,6 +41,7 @@ module.exports = {
                 email: data.email,
               }
               let token = jwt.sign(payload, process.env.SECRETKEY)
+              console.log(data+'TOKEEEN');
                   res.status(200).json({
                     message: 'login success',
                     id: data.id,

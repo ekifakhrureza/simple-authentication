@@ -46,7 +46,7 @@ function signIn(req, res) {
           role : data.role
           // password: data.password
         }
-        let token = jwt.sign(payload, 'rahasia dong')
+        let token = jwt.sign(payload, process.env.SECRETKEY)
             res.status(200).json({
               message: 'login success',
               token: token,

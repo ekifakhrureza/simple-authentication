@@ -1,7 +1,4 @@
 
-$(document).on('click.bs.dropdown.data-api', '.dropdown-menu', function (e) {
-    e.stopPropagation();
-});
 const instance = axios.create({
     baseURL: 'http://localhost:3000',
     headers: { 'token': localStorage.getItem('token') }
@@ -19,18 +16,20 @@ new Vue({
     methods: {
 
         login() {
-            let email = document.querySelector('input#email').value;
-            let password = document.querySelector('input#password').value;
+          console.log('ajajajajaja');
+          let email = document.getElementById('email').value;
+          let password = document.getElementById('password').value;
+            console.log(email);
+            console.log(password);
             axios.post('http://localhost:3000/users/login', {
                 email: email,
                 password: password
-            })
-                .then((data) => {
+            }).then(data => {
+                  console.log('masuk gak yaaaa'+data);
                      if(data.status===202){
                        alert('Wrong username/password')
                     }
                     else{
-                        localStorage.setItem('id', data.data.id)
                         localStorage.setItem('token', data.data.token)
                         window.location.href = 'index.html';
                     }
@@ -38,16 +37,18 @@ new Vue({
 
                 })
                 .catch(err => {
-                //    alert('Connection problem')
+                    console.log('aerrrorrrr');
 
                 })
         },
 
         register : function(){
+              console.log('abababababa');
 
-            let email = document.querySelector('input#emailReg').value;
-            let name = document.querySelector('input#nameReg').value;
-            let password = document.querySelector('input#passwordReg').value;
+            let email = document.getElementById('emailReg').value;
+            let password = document.getElementById('passwordReg').value;
+            console.log(email);
+            console.log(password);
             axios.post('http://localhost:3000/users/register', {
                 email: email,
                 name : name,
@@ -55,16 +56,6 @@ new Vue({
 
             })
                 .then((data) => {
-                     if(data.status===202){
-                       alert('Wrong username/password')
-                    }
-                    else{
-                        localStorage.setItem('id', data.data.id)
-                        localStorage.setItem('token', data.data.token)
-                        window.location.href = 'index.html';
-
-                    }
-
 
                 })
                 .catch(err => {
